@@ -1,14 +1,19 @@
 using System;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class juggernaut_anim_control : MonoBehaviour
 {
     private Animator anim;
+    public GameObject weaponHitbox;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         anim = GetComponent<Animator>();
+        if(weaponHitbox != null) weaponHitbox.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -31,6 +36,18 @@ public class juggernaut_anim_control : MonoBehaviour
         } else if (Keyboard.current.digit6Key.wasPressedThisFrame)
         {
             anim.Play("OneHand_Up_Attack_B_3");
+        }}
+    public void ActivateHitbox()
+        {
+        if(weaponHitbox != null) weaponHitbox.SetActive(true);
+        Debug.Log("Hitbox ON");
         }
-    }
+
+    public void DeactivateHitbox()
+        {
+        if(weaponHitbox != null) weaponHitbox.SetActive(false);
+        Debug.Log("Hitbox OFF");
+        }
 }
+
+
