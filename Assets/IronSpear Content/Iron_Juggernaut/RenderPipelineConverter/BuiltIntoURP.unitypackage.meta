@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d586500e26fcc3742afaff7ea4109f50
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 325797
+  packageName: Iron Juggernaut
+  packageVersion: 1.0
+  assetPath: Assets/IronSpear Content/Iron_Juggernaut/RenderPipelineConverter/BuiltIntoURP.unitypackage
+  uploadId: 770799
