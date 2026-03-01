@@ -1285,7 +1285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   playerAnimation: {fileID: 381745910}
-  enemyAnimation: {fileID: 0}
+  juggernaut_Anim_Control: {fileID: 0}
   PlayerHealth: 6767
   EnemyHealth: 676741
   player: {fileID: 381745907}
@@ -1647,6 +1647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07580a54376d2c54d9fffcad542dcab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  gameManager: {fileID: 861582542}
   move: 
   playerAnimation: {fileID: 381745910}
   enemyAnimation: {fileID: 639212815}

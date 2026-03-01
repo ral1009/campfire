@@ -4,6 +4,7 @@ using System.Collections;
 
 public class Turnmanager : MonoBehaviour
 {
+    public gamemanager gameManager;
     public string move;
     public playeranimation playerAnimation;
     public juggernaut_anim_control enemyAnimation;
@@ -14,7 +15,7 @@ public class Turnmanager : MonoBehaviour
     void Update()
     {
         // We only take input if the game is currently in "Neutral"
-        if (gamemanager.Instance.currentGameState == "Neutral")
+        if (gameManager.currentGameState == "Neutral")
         {
             isPlayerTurn = true;
 
@@ -100,6 +101,7 @@ public class Turnmanager : MonoBehaviour
         // 5. START ENEMY ATTACK
         // Now that the player is safely back at their spot, the Juggernaut begins
         Debug.Log("Transition complete. Enemy attacking now!");
+        enemyAnimation.RunForward();
         gamemanager.Instance.enterEnemyAttack();
         
         // Note: Do NOT call enterNeutral() here. 
