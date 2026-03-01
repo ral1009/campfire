@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class ParryDetector : MonoBehaviour
 {
+    public gamemanager gameManager;
     bool Parried = false;
     private Animator anim;
     public GameObject weaponHitbox;
@@ -37,6 +38,8 @@ public class ParryDetector : MonoBehaviour
             {
                 Debug.Log("Hit");
                 anim.CrossFade("Hit_F_1",crossfadetime);
+                gamemanager.Instance.PlayerHealth -= 676;
+                Debug.Log(gamemanager.Instance.PlayerHealth);
             }
     }
     

@@ -3,6 +3,13 @@ using System.Collections;
 
 public class gamemanager : MonoBehaviour
 {
+    void Awake() 
+{
+    Instance = this;
+}
+    public static gamemanager Instance;
+    public int PlayerHealth = 6767;
+    public int EnemyHealth = 676741;
     public Transform player;
     public Transform enemy;
     public float movespeed = 50f;
@@ -32,6 +39,7 @@ public class gamemanager : MonoBehaviour
         cam = Camera.main.transform;
         enterNeutral();
     }
+    
 
     public void enterPlayerAttack() 
     {
@@ -59,7 +67,7 @@ public class gamemanager : MonoBehaviour
 
     IEnumerator MoveToState(Vector3 pTarget, Vector3 eTarget, Vector3 cLocalPos, Quaternion cLocalRot)
     {
-        while (Vector3.Distance(player.position, pTarget) > 0.01f)
+        while (Vector3.Distance(player.position, pTarget) > 0.01f|| Vector3.Distance(enemy.position, eTarget) > 0.1f)
         {
             player.position = Vector3.MoveTowards(player.position, pTarget, movespeed * Time.deltaTime);
             enemy.position = Vector3.MoveTowards(enemy.position, eTarget, movespeed * Time.deltaTime);

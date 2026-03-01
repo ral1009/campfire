@@ -503,6 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f26bae8c008ed04419cb2e3168b55f51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::juggernaut_anim_control
+  gameManager: {fileID: 0}
   weaponHitbox: {fileID: 2110559878}
 --- !u!4 &639212817 stripped
 Transform:
@@ -887,18 +888,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b40a566219fa0e43beb7a613852beb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  enemyAttackPos: {x: 10.8428, y: 0, z: -1.08772}
-  enemyNeutralPos: {x: 10.8428, y: 0, z: -40.8}
-  playerNeutralPos: {x: 10.6, y: 0, z: 8.5}
-  cameraAttackPos: {x: 0, y: 0, z: 0}
-  cameraPlayerNeutralPos: {x: 0.846, y: 1.715, z: -0.757}
-  playerAttackPos: {x: 10.6, y: 0, z: -31.22}
-  cameraAttackRot: {x: 0, y: 0, z: 0, w: 0}
-  cameraPlayerNeutralRot: {x: -0.09128861, y: 0.17254372, z: -0.02995538, w: -0.98030496}
-  gamestate: 
   player: {fileID: 224212694}
   enemy: {fileID: 639212817}
-  movespeed: 100
+  movespeed: 50
+  rotationSpeed: 2.5
+  currentGameState: 
 --- !u!1 &873890641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1095,6 +1089,54 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 639212815}
   m_SourcePrefab: {fileID: 100100000, guid: dd3bb7cef711fa344bd6e9464b36b833, type: 3}
+--- !u!1 &1605432967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1605432968}
+  - component: {fileID: 1605432969}
+  m_Layer: 0
+  m_Name: Turns
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1605432968
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605432967}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.77891, y: 0, z: -44.24634}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1605432969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605432967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07580a54376d2c54d9fffcad542dcab2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  gameManager: {fileID: 861582542}
+  PlayerHealth: 6767
+  EnemyHealth: 676741
+  move: 
 --- !u!1001 &1640095381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1304,3 +1346,4 @@ SceneRoots:
   - {fileID: 873890645}
   - {fileID: 650076899}
   - {fileID: 861582541}
+  - {fileID: 1605432968}

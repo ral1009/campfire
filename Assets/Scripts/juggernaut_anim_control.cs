@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class juggernaut_anim_control : MonoBehaviour
 {
+    public gamemanager gameManager;
     private Animator anim;
     public GameObject weaponHitbox;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -13,13 +14,13 @@ public class juggernaut_anim_control : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         if(weaponHitbox != null) weaponHitbox.SetActive(false);
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.digit1Key.wasPressedThisFrame)
+         if (gamemanager.Instance != null && gamemanager.Instance.currentGameState == "EnemyAttack"){
+            if (Keyboard.current.digit1Key.wasPressedThisFrame)
         {
             anim.CrossFade("OneHand_Up_Attack_A_1_InPlace",0.2f);
         } if (Keyboard.current.digit2Key.wasPressedThisFrame)
@@ -36,7 +37,7 @@ public class juggernaut_anim_control : MonoBehaviour
         } if (Keyboard.current.digit6Key.wasPressedThisFrame)
         {
             anim.CrossFade("OneHand_Up_Attack_B_3_InPlace",0.2f);
-        }}
+        }}}
     public void ActivateHitbox()
         {
         if(weaponHitbox != null) weaponHitbox.SetActive(true);
