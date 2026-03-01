@@ -308,8 +308,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13026011, y: -0.4328473, z: 0.06336898, w: 0.88975275}
-  m_LocalPosition: {x: 1.8099998, y: 2.0200002, z: -0.73999995}
+  m_LocalRotation: {x: 0.13026083, y: -0.432847, z: 0.0633693, w: 0.8897527}
+  m_LocalPosition: {x: 1.81, y: 2.02, z: -0.7399999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -504,6 +504,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::juggernaut_anim_control
   weaponHitbox: {fileID: 2110559878}
+--- !u!4 &639212817 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7584525173041683099, guid: dd3bb7cef711fa344bd6e9464b36b833, type: 3}
+  m_PrefabInstance: {fileID: 1083210655}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &650076896
 GameObject:
   m_ObjectHideFlags: 0
@@ -838,6 +843,62 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &861582540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 861582541}
+  - component: {fileID: 861582542}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &861582541
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861582540}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &861582542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861582540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b40a566219fa0e43beb7a613852beb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  enemyAttackPos: {x: 10.8428, y: 0, z: -1.08772}
+  enemyNeutralPos: {x: 10.8428, y: 0, z: -40.8}
+  playerNeutralPos: {x: 10.6, y: 0, z: 8.5}
+  cameraAttackPos: {x: 0, y: 0, z: 0}
+  cameraPlayerNeutralPos: {x: 0.846, y: 1.715, z: -0.757}
+  playerAttackPos: {x: 10.6, y: 0, z: -31.22}
+  cameraAttackRot: {x: 0, y: 0, z: 0, w: 0}
+  cameraPlayerNeutralRot: {x: -0.09128861, y: 0.17254372, z: -0.02995538, w: -0.98030496}
+  gamestate: 
+  player: {fileID: 224212694}
+  enemy: {fileID: 639212817}
+  movespeed: 100
 --- !u!1 &873890641
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,7 +1035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7584525173041683099, guid: dd3bb7cef711fa344bd6e9464b36b833, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.08772
+      value: -40.8
       objectReference: {fileID: 0}
     - target: {fileID: 7584525173041683099, guid: dd3bb7cef711fa344bd6e9464b36b833, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1015,6 +1076,10 @@ PrefabInstance:
     - target: {fileID: 7983505588905401017, guid: dd3bb7cef711fa344bd6e9464b36b833, type: 3}
       propertyPath: m_WarningMessage
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8547800949701930211, guid: dd3bb7cef711fa344bd6e9464b36b833, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.645
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1068,7 +1133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6048376750277521002, guid: 459f79a004eb51144840e79b6950c697, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.5
+      value: -31.21228
       objectReference: {fileID: 0}
     - target: {fileID: 6048376750277521002, guid: 459f79a004eb51144840e79b6950c697, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1238,3 +1303,4 @@ SceneRoots:
   - {fileID: 1083210655}
   - {fileID: 873890645}
   - {fileID: 650076899}
+  - {fileID: 861582541}
