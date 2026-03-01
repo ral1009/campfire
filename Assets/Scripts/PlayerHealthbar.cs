@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class playerHealthbar : MonoBehaviour
+public class PlayerHealthbar : MonoBehaviour
 {
 
     public gamemanager gameManager;

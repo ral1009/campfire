@@ -4,7 +4,9 @@ public class playeranimation : MonoBehaviour
 {
     public Animator anim;
     public static playeranimation Instance;
+    public PlayerHealthbar playerHealthbar;
     public int healthStart;
+
     void Awake() 
 {
     Instance = this;
@@ -47,6 +49,7 @@ public class playeranimation : MonoBehaviour
     public void DecreaseHealth()
     {
         gamemanager.Instance.PlayerHealth-=676;
+        playerHealthbar.updatePlayerHealthbar(gamemanager.Instance.PlayerHealth-676, 6767);
         Debug.Log(gamemanager.Instance.PlayerHealth);
     }
 }
