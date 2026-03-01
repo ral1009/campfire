@@ -21,21 +21,21 @@ public class juggernaut_anim_control : MonoBehaviour
     {
         if (Keyboard.current.digit1Key.wasPressedThisFrame)
         {
-            anim.Play("OneHand_Up_Attack_A_1");
+            anim.Play("OneHand_Up_Attack_A_1_InPlace");
         } else if (Keyboard.current.digit2Key.wasPressedThisFrame)
         {
-            anim.Play("OneHand_Up_Attack_A_2");
+            anim.Play("OneHand_Up_Attack_A_2_InPlace");
         } else if (Keyboard.current.digit3Key.wasPressedThisFrame)
         {
-             anim.Play("OneHand_Up_Attack_A_3");
+             anim.Play("OneHand_Up_Attack_A_3_InPlace");
         }   else if (Keyboard.current.digit4Key.wasPressedThisFrame)
         {
-            anim.Play("OneHand_Up_Attack_B_1");
+            anim.Play("OneHand_Up_Attack_B_1_InPlace");
         } else if (Keyboard.current.digit5Key.wasPressedThisFrame){
-            anim.Play("OneHand_Up_Attack_B_2");
+            anim.Play("OneHand_Up_Attack_B_2_InPlace");
         } else if (Keyboard.current.digit6Key.wasPressedThisFrame)
         {
-            anim.Play("OneHand_Up_Attack_B_3");
+            anim.Play("OneHand_Up_Attack_B_3_InPlace");
         }}
     public void ActivateHitbox()
         {

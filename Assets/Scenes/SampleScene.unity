@@ -573,7 +573,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!136 &798166345
 CapsuleCollider:
@@ -611,10 +611,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParryDetector
   weaponHitbox: {fileID: 2110559878}
-  returnSpeed: 15
   delayTime: 1.5
   crossfadetime: 0.2
-  offset: {x: 0, y: 0, z: -2.9}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,6 +767,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 1c0fccbbd1c993446be79ed155fdecfb, type: 2}
+    - target: {fileID: 364802905602536464, guid: 459f79a004eb51144840e79b6950c697, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6048376750277521002, guid: 459f79a004eb51144840e79b6950c697, type: 3}
       propertyPath: m_LocalScale.x
       value: 10
