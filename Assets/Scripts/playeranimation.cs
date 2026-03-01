@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class playeranimation : MonoBehaviour
 {
-    private Animator anim;
+    public Animator anim;
     public static playeranimation Instance;
     public int healthStart;
     void Awake() 

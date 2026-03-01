@@ -1270,6 +1270,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b7fcaaa43f716f47bdd50b32853f0b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  anim: {fileID: 1807707495}
+  healthStart: 0
 --- !u!1 &2057660827
 GameObject:
   m_ObjectHideFlags: 0
