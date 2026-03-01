@@ -497,6 +497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::playeranimation
   anim: {fileID: 381745909}
+  playerHealthbar: {fileID: 880552895}
   healthStart: 0
 --- !u!4 &381745911 stripped
 Transform:
@@ -1403,6 +1404,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &880552890 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6714271707855391578, guid: 3360cde2ffbe852478d55f94834b9cd9, type: 3}
+  m_PrefabInstance: {fileID: 8941348195783243123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &880552895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880552890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e78818aeb77f16947b5e1a877458adc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthbar
+  gameManager: {fileID: 861582542}
 --- !u!1001 &1083210655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1760,6 +1779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   anim: {fileID: 1807707495}
+  playerHealthbar: {fileID: 0}
   healthStart: 0
 --- !u!1 &2057660827
 GameObject:
@@ -1884,6 +1904,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 873890645}
     m_Modifications:
+    - target: {fileID: 415349321225112531, guid: 3360cde2ffbe852478d55f94834b9cd9, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 861582542}
     - target: {fileID: 1380183668778372161, guid: 3360cde2ffbe852478d55f94834b9cd9, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -1968,10 +1992,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player health bar
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 415349321225112531, guid: 3360cde2ffbe852478d55f94834b9cd9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6714271707855391578, guid: 3360cde2ffbe852478d55f94834b9cd9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 880552895}
   m_SourcePrefab: {fileID: 100100000, guid: 3360cde2ffbe852478d55f94834b9cd9, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

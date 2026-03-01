@@ -5,7 +5,7 @@ public class PlayerHealthbar : MonoBehaviour
 {
 
     public gamemanager gameManager;
-    public static Healthbar Instance;
+    public static PlayerHealthbar Instance;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,6 +23,6 @@ public class PlayerHealthbar : MonoBehaviour
         GetComponent<Image>().fillAmount = healthRatio;
 
         float newGlowX = (432 * healthRatio) - 2;
-        transform.Find("PlayerGlow").GetComponent<RectTransform>().anchoredPosition = new Vector2(newGlowX, 0);
+        transform.Find("Glow").GetComponent<RectTransform>().anchoredPosition = new Vector2(newGlowX, 0);
     }
 }

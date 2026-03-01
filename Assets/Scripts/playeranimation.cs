@@ -45,7 +45,6 @@ public class playeranimation : MonoBehaviour
     {
         anim.CrossFade("OneHand_Up_Run_B",0.2f);
     }
-
     public void DecreaseHealth()
     {
         gamemanager.Instance.PlayerHealth-=676;

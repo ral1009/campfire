@@ -55,7 +55,7 @@ public class juggernaut_anim_control : MonoBehaviour
             else if (choice == 6) anim.CrossFade("OneHand_Up_Attack_B_3_InPlace", 0.2f);
 
             // Wait for the animation to actually play before picking the next one
-            yield return new WaitForSeconds(1.2f); 
+            yield return new WaitForSeconds(2.5f); 
         }
 
         // Once all random attacks are done, go back to Neutral
