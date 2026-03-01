@@ -4,7 +4,7 @@ using System;
 public class Bobbing : MonoBehaviour
 {
     public float startY;
-    public float amplitude = 5;
+    public float amplitude = 50;
     public float bobSpeed = 3f;
     public float random;
 
