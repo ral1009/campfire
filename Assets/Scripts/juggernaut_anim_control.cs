@@ -7,6 +7,7 @@ public class juggernaut_anim_control : MonoBehaviour
     public gamemanager gameManager;
     private Animator anim;
     public GameObject weaponHitbox;
+    public static juggernaut_anim_control Instance;
 
     private Coroutine timeRoutine;
     public float slowdown;
@@ -21,7 +22,6 @@ public class juggernaut_anim_control : MonoBehaviour
     {
         if (gamemanager.Instance != null && gamemanager.Instance.currentGameState == "EnemyAttack")
         {
-            // Your existing Input logic...
             if (Keyboard.current.digit1Key.wasPressedThisFrame) anim.CrossFade("OneHand_Up_Attack_A_1_InPlace", 0.2f);
             if (Keyboard.current.digit2Key.wasPressedThisFrame) anim.CrossFade("OneHand_Up_Attack_A_2_InPlace", 0.2f);
             if (Keyboard.current.digit3Key.wasPressedThisFrame) anim.CrossFade("OneHand_Up_Attack_A_3_InPlace", 0.2f);
@@ -29,6 +29,10 @@ public class juggernaut_anim_control : MonoBehaviour
             if (Keyboard.current.digit5Key.wasPressedThisFrame) anim.CrossFade("OneHand_Up_Attack_B_2_InPlace", 0.2f);
             if (Keyboard.current.digit6Key.wasPressedThisFrame) anim.CrossFade("OneHand_Up_Attack_B_3_InPlace", 0.2f);
         }
+    }
+    public void TakeDamage()
+    {
+        anim.CrossFade("Hit_F_2", 0.2f);
     }
 
     public void ActivateHitbox()

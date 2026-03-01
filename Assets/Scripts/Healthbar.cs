@@ -4,16 +4,17 @@ using UnityEngine.UI;
 public class Healthbar : MonoBehaviour
 {
 
+    public gamemanager gameManager;
+    public static Healthbar Instance;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        updateHealthbar(2, 3);
+        updateHealthbar(676741, 676741);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void updateHealthbar(float currentHealth, float maxHealth)

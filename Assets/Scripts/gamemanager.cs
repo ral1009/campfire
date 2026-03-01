@@ -8,6 +8,7 @@ public class gamemanager : MonoBehaviour
     Instance = this;
 }
     public static gamemanager Instance;
+    public playeranimation playerAnimation;
     public int PlayerHealth = 6767;
     public int EnemyHealth = 676741;
     public Transform player;
@@ -17,16 +18,12 @@ public class gamemanager : MonoBehaviour
     public bool movementcompleted = false;
 
     [Header("State Tracking")]
-    // This will show "Neutral", "PlayerAttack", or "EnemyAttack" in the Inspector
     public string currentGameState; 
-
-    // Hardcoded World Positions
     private Vector3 enemyAttackPos = new Vector3(10.8428f, 0f, -1.08772f);
     private Vector3 playerNeutralPos = new Vector3(10.6f, 0f, 8.5f);
     private Vector3 enemyNeutralPos = new Vector3(10.8428f, 0f, -40.8f);
     private Vector3 playerAttackPos = new Vector3(10.6f, 0f, -31.22f);
 
-    // Hardcoded Local Values (Relative to Player Parent)
     private Vector3 camAttackLocPos = new Vector3(1.81f, 2.02f, -0.7399999f);
     private Quaternion camAttackLocRot = Quaternion.Euler(16.658f, -51.884f, 0f);
     
@@ -46,6 +43,7 @@ public class gamemanager : MonoBehaviour
     public void enterPlayerAttack() 
     {
         currentGameState = "PlayerAttack";
+        playerAnimation.MoveForward();
         movementcompleted = false;
         Transition(playerAttackPos, enemyNeutralPos, camAttackLocPos, camAttackLocRot);
     }
@@ -53,6 +51,7 @@ public class gamemanager : MonoBehaviour
     public void enterEnemyAttack() 
     {
         currentGameState = "EnemyAttack";
+        playerAnimation.MoveBackward();
         movementcompleted = false;
         Transition(playerNeutralPos, enemyAttackPos, camAttackLocPos, camAttackLocRot);
     }
@@ -60,6 +59,7 @@ public class gamemanager : MonoBehaviour
     public void enterNeutral() 
     {
         currentGameState = "Neutral";
+        playerAnimation.MoveBackward();
         movementcompleted = false;
         Transition(playerNeutralPos, enemyNeutralPos, camNeutralLocPos, camNeutralLocRot);
     }

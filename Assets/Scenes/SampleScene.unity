@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &147943008 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1269832034272684011, guid: 0e8922b07feadf848b4f752ca1795aaf, type: 3}
+  m_PrefabInstance: {fileID: 662768071}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c75c00f93a19854d831ad8f84fbdd89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Healthbar
 --- !u!4 &224212694 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6048376750277521002, guid: 459f79a004eb51144840e79b6950c697, type: 3}
@@ -598,6 +609,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 873890645}
     m_Modifications:
+    - target: {fileID: 1269832034272684011, guid: 0e8922b07feadf848b4f752ca1795aaf, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 861582542}
     - target: {fileID: 2134376106404718731, guid: 0e8922b07feadf848b4f752ca1795aaf, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -890,6 +905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b40a566219fa0e43beb7a613852beb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  playerAnimation: {fileID: 1807707496}
   PlayerHealth: 6767
   EnemyHealth: 676741
   player: {fileID: 224212694}
@@ -1140,6 +1156,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   move: 
   playerAnimation: {fileID: 1807707496}
+  enemyAnimation: {fileID: 639212815}
+  healthBar: {fileID: 147943008}
 --- !u!1001 &1640095381
 PrefabInstance:
   m_ObjectHideFlags: 0

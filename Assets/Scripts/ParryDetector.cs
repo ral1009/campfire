@@ -78,8 +78,6 @@ public class ParryDetector : MonoBehaviour
     {
         Debug.Log("Hit Taken");
         playerAnimation.TakeDamage();
-        if (gamemanager.Instance != null) gamemanager.Instance.PlayerHealth -= 676;
-        
         Time.timeScale = 1.0f;
         Time.fixedDeltaTime = 0.02f;
     }

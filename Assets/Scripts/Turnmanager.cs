@@ -6,16 +6,17 @@ public class Turnmanager : MonoBehaviour
 {
     public string move;
     public playeranimation playerAnimation;
+    public juggernaut_anim_control enemyAnimation;
+    
+    public Healthbar healthBar;
 
     void Update()
     {
-        // Only allow input during the Neutral state
         if (gamemanager.Instance.currentGameState == "Neutral")
         {
             if (Keyboard.current.aKey.wasPressedThisFrame)
             {
                 move = "sword";
-                // Start a Coroutine so we can "wait" for the movement to finish
                 StartCoroutine(AttackSequence());
             }
             else if (Keyboard.current.sKey.wasPressedThisFrame)
@@ -44,13 +45,16 @@ public class Turnmanager : MonoBehaviour
     IEnumerator AttackSequence()
     {
         gamemanager.Instance.enterPlayerAttack();
-
         while (gamemanager.Instance.movementcompleted == false)
         {
             yield return null;
         }
         playerAnimation.Attack();
         Debug.Log("Arrived and Attacking!");
+        yield return new WaitForSeconds(0.7f);
+        enemyAnimation.TakeDamage();
+        healthBar.updateHealthbar(gamemanager.Instance.EnemyHealth-=67676,676741);
+        yield return new WaitForSeconds(2.5f);
         gamemanager.Instance.enterEnemyAttack();
     }
 }
