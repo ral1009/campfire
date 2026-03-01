@@ -766,11 +766,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::juggernaut_anim_control
   gameManager: {fileID: 861582542}
+  anim: {fileID: 639212818}
   weaponHitbox: {fileID: 2110559878}
   slowdown: 1
 --- !u!4 &639212817 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7584525173041683099, guid: dd3bb7cef711fa344bd6e9464b36b833, type: 3}
+  m_PrefabInstance: {fileID: 1083210655}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &639212818 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7983505588905401017, guid: dd3bb7cef711fa344bd6e9464b36b833, type: 3}
   m_PrefabInstance: {fileID: 1083210655}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &650076896
@@ -1259,6 +1265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   playerAnimation: {fileID: 381745910}
+  enemyAnimation: {fileID: 0}
   PlayerHealth: 6767
   EnemyHealth: 676741
   player: {fileID: 381745907}

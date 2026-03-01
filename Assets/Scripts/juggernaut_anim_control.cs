@@ -5,16 +5,20 @@ using System.Collections; // Needed for IEnumerator
 public class juggernaut_anim_control : MonoBehaviour
 {
     public gamemanager gameManager;
-    private Animator anim;
+    public Animator anim;
     public GameObject weaponHitbox;
     public static juggernaut_anim_control Instance;
 
     private Coroutine timeRoutine;
     public float slowdown;
 
-    void Start()
+    void Awake()
     {
         anim = GetComponent<Animator>();
+        Instance = this;
+    }
+    void Start()
+    {
         if(weaponHitbox != null) weaponHitbox.SetActive(false);
     }
 
@@ -34,7 +38,11 @@ public class juggernaut_anim_control : MonoBehaviour
     {
         anim.CrossFade("Hit_F_2", 0.2f);
     }
-
+    public void RunForward()
+    {
+        Debug.Log("run");
+        anim.CrossFade("OneHand_Up_Sprint_F",0.2f);
+    }
     public void ActivateHitbox()
     {
         if(weaponHitbox != null) weaponHitbox.SetActive(true);

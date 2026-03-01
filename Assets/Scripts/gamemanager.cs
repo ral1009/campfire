@@ -9,6 +9,7 @@ public class gamemanager : MonoBehaviour
 }
     public static gamemanager Instance;
     public playeranimation playerAnimation;
+    public juggernaut_anim_control juggernaut_Anim_Control;
     public int PlayerHealth = 6767;
     public int EnemyHealth = 676741;
     public Transform player;
@@ -51,6 +52,7 @@ public class gamemanager : MonoBehaviour
     public void enterEnemyAttack() 
     {
         currentGameState = "EnemyAttack";
+        juggernaut_Anim_Control.anim.CrossFade("OneHand_Up_Sprint_F",0.2f);
         playerAnimation.MoveBackward();
         movementcompleted = false;
         Transition(playerNeutralPos, enemyAttackPos, camAttackLocPos, camAttackLocRot);
@@ -59,6 +61,13 @@ public class gamemanager : MonoBehaviour
     public void enterNeutral() 
     {
         currentGameState = "Neutral";
+        playerAnimation.MoveBackward();
+        movementcompleted = false;
+        Transition(playerNeutralPos, enemyNeutralPos, camNeutralLocPos, camNeutralLocRot);
+    }
+        public void enterTransition() 
+    {
+        currentGameState = "Transition";
         playerAnimation.MoveBackward();
         movementcompleted = false;
         Transition(playerNeutralPos, enemyNeutralPos, camNeutralLocPos, camNeutralLocRot);
