@@ -52,7 +52,6 @@ public class gamemanager : MonoBehaviour
     public void enterEnemyAttack() 
     {
         currentGameState = "EnemyAttack";
-        juggernaut_Anim_Control.anim.CrossFade("OneHand_Up_Sprint_F",0.2f);
         playerAnimation.MoveBackward();
         movementcompleted = false;
         Transition(playerNeutralPos, enemyAttackPos, camAttackLocPos, camAttackLocRot);
