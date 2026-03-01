@@ -7,6 +7,8 @@ public class Turnmanager : MonoBehaviour
     public string move;
     public playeranimation playerAnimation;
     public juggernaut_anim_control enemyAnimation;
+
+    public bool isPlayerTurn;
     
     public Healthbar healthBar;
 
@@ -14,6 +16,8 @@ public class Turnmanager : MonoBehaviour
     {
         if (gamemanager.Instance.currentGameState == "Neutral")
         {
+            isPlayerTurn = true;
+
             if (Keyboard.current.aKey.wasPressedThisFrame)
             {
                 move = "sword";
@@ -34,11 +38,14 @@ public class Turnmanager : MonoBehaviour
                 move = "heal";
                 Debug.Log(gamemanager.Instance.PlayerHealth);
                 gamemanager.Instance.enterEnemyAttack();}
-                        else if (Keyboard.current.fKey.wasPressedThisFrame)
+            else if (Keyboard.current.fKey.wasPressedThisFrame)
             {
                 move = "skip";
                 gamemanager.Instance.enterEnemyAttack();
             }
+        } else
+        {
+            isPlayerTurn = false;
         }
     }
 
