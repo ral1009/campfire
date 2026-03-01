@@ -14,6 +14,7 @@ public class gamemanager : MonoBehaviour
     public Transform enemy;
     public float movespeed = 50f;
     public float rotationSpeed = 5f;
+    public bool movementcompleted = false;
 
     [Header("State Tracking")]
     // This will show "Neutral", "PlayerAttack", or "EnemyAttack" in the Inspector
@@ -38,24 +39,28 @@ public class gamemanager : MonoBehaviour
     {
         cam = Camera.main.transform;
         enterNeutral();
+        
     }
     
 
     public void enterPlayerAttack() 
     {
         currentGameState = "PlayerAttack";
+        movementcompleted = false;
         Transition(playerAttackPos, enemyNeutralPos, camAttackLocPos, camAttackLocRot);
     }
 
     public void enterEnemyAttack() 
     {
         currentGameState = "EnemyAttack";
+        movementcompleted = false;
         Transition(playerNeutralPos, enemyAttackPos, camAttackLocPos, camAttackLocRot);
     }
 
     public void enterNeutral() 
     {
         currentGameState = "Neutral";
+        movementcompleted = false;
         Transition(playerNeutralPos, enemyNeutralPos, camNeutralLocPos, camNeutralLocRot);
     }
 
@@ -82,5 +87,6 @@ public class gamemanager : MonoBehaviour
         enemy.position = eTarget;
         cam.localPosition = cLocalPos;
         cam.localRotation = cLocalRot;
+        movementcompleted = true;
     }
 }

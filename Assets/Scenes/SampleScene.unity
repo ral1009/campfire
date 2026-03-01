@@ -503,8 +503,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f26bae8c008ed04419cb2e3168b55f51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::juggernaut_anim_control
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 861582542}
   weaponHitbox: {fileID: 2110559878}
+  slowdown: 1
 --- !u!4 &639212817 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7584525173041683099, guid: dd3bb7cef711fa344bd6e9464b36b833, type: 3}
@@ -776,7 +777,7 @@ CapsuleCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.2
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -792,9 +793,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936ab4ca156d2b04cb6ffb6b5de2020b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParryDetector
-  weaponHitbox: {fileID: 2110559878}
-  delayTime: 1.5
-  crossfadetime: 0.2
+  anim: {fileID: 1807707495}
+  playerAnimation: {fileID: 1807707496}
+  parryBufferTime: 0.3
+  lateGracePeriod: 0.1
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,10 +890,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b40a566219fa0e43beb7a613852beb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  PlayerHealth: 6767
+  EnemyHealth: 676741
   player: {fileID: 224212694}
   enemy: {fileID: 639212817}
   movespeed: 50
   rotationSpeed: 2.5
+  movementcompleted: 0
   currentGameState: 
 --- !u!1 &873890641
 GameObject:
@@ -1133,10 +1138,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07580a54376d2c54d9fffcad542dcab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  gameManager: {fileID: 861582542}
-  PlayerHealth: 6767
-  EnemyHealth: 676741
   move: 
+  playerAnimation: {fileID: 1807707496}
 --- !u!1001 &1640095381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1222,8 +1225,33 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6048376750277521002, guid: 459f79a004eb51144840e79b6950c697, type: 3}
       insertIndex: -1
       addedObject: {fileID: 330585546}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6393974813386716368, guid: 459f79a004eb51144840e79b6950c697, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1807707496}
   m_SourcePrefab: {fileID: 100100000, guid: 459f79a004eb51144840e79b6950c697, type: 3}
+--- !u!1 &1807707494 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6393974813386716368, guid: 459f79a004eb51144840e79b6950c697, type: 3}
+  m_PrefabInstance: {fileID: 1640095381}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1807707495 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 364802905602536464, guid: 459f79a004eb51144840e79b6950c697, type: 3}
+  m_PrefabInstance: {fileID: 1640095381}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1807707496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807707494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b7fcaaa43f716f47bdd50b32853f0b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &2057660827
 GameObject:
   m_ObjectHideFlags: 0
@@ -1330,8 +1358,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
-  m_Height: 0.1
+  m_Radius: 0.5
+  m_Height: 0.2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
