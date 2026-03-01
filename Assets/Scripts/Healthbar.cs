@@ -9,7 +9,7 @@ public class Healthbar : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        updateHealthbar(676741, 676741);
+        
     }
 
     // Update is called once per frame
