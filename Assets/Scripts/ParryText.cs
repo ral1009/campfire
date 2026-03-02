@@ -13,7 +13,7 @@ public class ParryText : MonoBehaviour
     }
 
     // Call this right after spawning to set the number
-    public void createParryText(int damageAmount)
+    public void createParryText()
     {
         textMesh.SetText("parried!");
     }

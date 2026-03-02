@@ -10,9 +10,13 @@ public class Turnmanager : MonoBehaviour
     public juggernaut_anim_control enemyAnimation;
 
     [Header("UI & Health")]
-    public bool isPlayerTurn; 
-    public Healthbar enemyHealthBar;       // For the Juggernaut
-    public PlayerHealthbar playerHealthbar; // For the Player
+    public bool isPlayerTurn;
+    public Healthbar enemyHealthBar;       
+    public PlayerHealthbar playerHealthbar; 
+
+    [Header("Damage Popups")]
+    public GameObject damageTextPrefab;
+    private Transform uiCanvas;
 
     [Header("UDP Gesture Receiver")]
     public UdpGestureReceiverV2 gestureReceiver;
@@ -23,7 +27,7 @@ public class Turnmanager : MonoBehaviour
 
     void Awake()
     {
-        // Auto-link the gesture receiver if it exists in the scene
+        // Auto-link the gesture receiver
         if (autoFindGestureReceiver && gestureReceiver == null)
         {
 #if UNITY_2023_1_OR_NEWER
@@ -34,13 +38,19 @@ public class Turnmanager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        // Find the Canvas for the damage popups
+        GameObject canvasObj = GameObject.Find("MainCanvas");
+        if (canvasObj != null) uiCanvas = canvasObj.transform;
+    }
+
     void Update()
     {
         // 1. STATE CHECK
         bool neutral = (gameManager != null && gameManager.currentGameState == "Neutral");
         isPlayerTurn = neutral;
 
-        // If we aren't in Neutral, reset the lock and track the "last" hand position
         if (!neutral)
         {
             actionLocked = false;
@@ -48,55 +58,46 @@ public class Turnmanager : MonoBehaviour
             return;
         }
 
-        // If we are already doing a move, ignore all further input
         if (actionLocked) return;
 
         // 2. INPUT COLLECTION
-        // Keyboard Fallback
         bool keySword = Keyboard.current != null && Keyboard.current.aKey.wasPressedThisFrame;
         bool keySpell = Keyboard.current != null && Keyboard.current.sKey.wasPressedThisFrame;
         bool keyHeal  = Keyboard.current != null && Keyboard.current.dKey.wasPressedThisFrame;
         bool keySkip  = Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame;
 
-        // Gesture Logic
         var handsNow = gestureReceiver ? gestureReceiver.handsUpState : UdpGestureReceiverV2.HandsUpState.None;
         bool gestureSword = (handsNow == UdpGestureReceiverV2.HandsUpState.Right) && (prevHands != handsNow);
         bool gestureSpell = (handsNow == UdpGestureReceiverV2.HandsUpState.Left)  && (prevHands != handsNow);
         bool gestureHeal  = (handsNow == UdpGestureReceiverV2.HandsUpState.Both)  && (prevHands != handsNow);
         bool gestureSkip  = gestureReceiver != null && gestureReceiver.crossPressedThisFrame;
 
-        prevHands = handsNow; // Update history for the next frame
+        prevHands = handsNow;
 
         // 3. MOVE EXECUTION
-        // --- ATTACK (SWORD/SPELL) ---
         if (keySword || gestureSword || keySpell || gestureSpell)
         {
             move = (keySword || gestureSword) ? "sword" : "spell";
             actionLocked = true;
             StartCoroutine(AttackSequence());
         }
-        // --- HEAL ---
         else if ((keyHeal || gestureHeal) && gamemanager.Instance.PlayerHealth < 6767)
         {
             actionLocked = true;
             
-            // Logic: Add 676 HP, but don't go over the max (6767)
+            // Healing Logic
             if (gamemanager.Instance.PlayerHealth <= 6091)
                 gamemanager.Instance.PlayerHealth += 676;
             else
                 gamemanager.Instance.PlayerHealth = 6767;
 
-            move = "heal";
-            Debug.Log("Healed! HP: " + gamemanager.Instance.PlayerHealth);
-
-            // UI UPDATE: Update the player's health bar visually
+            // Update Player UI
             if (playerHealthbar != null)
                 playerHealthbar.updatePlayerHealthbar(gamemanager.Instance.PlayerHealth, 6767);
 
             gamemanager.Instance.enterEnemyAttack();
             StartCoroutine(UnlockNextFrame());
         }
-        // --- SKIP ---
         else if (keySkip || gestureSkip)
         {
             move = "skip";
@@ -122,13 +123,24 @@ public class Turnmanager : MonoBehaviour
         playerAnimation.Attack();
         yield return new WaitForSeconds(0.7f);
 
-        // 3. Apply Damage
+        // 3. APPLY DAMAGE & UI POPUP
         enemyAnimation.TakeDamage();
-        gamemanager.Instance.EnemyHealth -= 67676;
+        int damageDealt = 67676;
+        gamemanager.Instance.EnemyHealth -= damageDealt;
         
-        // UI UPDATE: Update the Juggernaut's health bar
+        // Update Enemy UI Bar
         if (enemyHealthBar != null)
             enemyHealthBar.updateHealthbar(gamemanager.Instance.EnemyHealth, 676741);
+
+        // SPAWN POPUP (Missing in previous merge)
+        if (damageTextPrefab != null && uiCanvas != null)
+        {
+            GameObject popup = Instantiate(damageTextPrefab, uiCanvas);
+            popup.transform.localPosition = Vector3.zero;
+            
+            DamageText dtScript = popup.GetComponent<DamageText>();
+            if (dtScript != null) dtScript.setDamageNumber(damageDealt);
+        }
 
         // 4. Recovery & Return
         yield return new WaitForSeconds(2.0f);

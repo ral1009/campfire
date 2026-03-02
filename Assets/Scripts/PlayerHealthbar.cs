@@ -15,6 +15,14 @@ public class PlayerHealthbar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameManager.PlayerHealth <= 0)
+        {
+            Debug.Log("Loss");
+        }
+        if (gameManager.EnemyHealth <= 0)
+        {
+            Debug.Log("Win");
+        }
     }
 
     public void updatePlayerHealthbar(float currentHealth, float maxHealth)

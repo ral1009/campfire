@@ -15,11 +15,20 @@ public class ParryDetector : MonoBehaviour
     public float parryBufferTime = 0.3f;
     public float lateGracePeriod = 0.1f;
 
+    [Header("UI Feedback")]
+    public GameObject parryTextPrefab;
+    private Transform uiCanvas;
+
     private float lastParryPressTime = -10f;
     private bool isProcessingHit = false;
 
     void Awake()
     {
+        // Auto-find the UI Canvas
+        GameObject canvasObj = GameObject.Find("MainCanvas");
+        if (canvasObj != null) uiCanvas = canvasObj.transform;
+
+        // Auto-find the Gesture Receiver
         if (autoFindGestureReceiver && gestureReceiver == null)
         {
 #if UNITY_2023_1_OR_NEWER
@@ -43,8 +52,16 @@ public class ParryDetector : MonoBehaviour
     {
         if (other.CompareTag("EnemyHitBox") && !isProcessingHit)
         {
-            if (Time.time - lastParryPressTime <= parryBufferTime) ExecuteParry();
-            else StartCoroutine(LateParryWindow());
+            // Check Early Buffer
+            if (Time.time - lastParryPressTime <= parryBufferTime)
+            {
+                ExecuteParry();
+            }
+            else
+            {
+                // Start Late Window
+                StartCoroutine(LateParryWindow());
+            }
         }
     }
 
@@ -76,6 +93,17 @@ public class ParryDetector : MonoBehaviour
         playerAnimation.Parry();
         Time.timeScale = 1.0f;
         Time.fixedDeltaTime = 0.02f;
+
+        // SPAWN UI FEEDBACK
+        if (parryTextPrefab != null && uiCanvas != null)
+        {
+            GameObject popup = Instantiate(parryTextPrefab, uiCanvas);
+            popup.transform.localPosition = Vector3.zero;
+            
+            // Trigger the text logic if the component exists
+            ParryText pText = popup.GetComponent<ParryText>();
+            if (pText != null) pText.createParryText();
+        }
     }
 
     void ExecuteHit()

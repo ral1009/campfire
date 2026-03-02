@@ -130,6 +130,107 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c75c00f93a19854d831ad8f84fbdd89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Healthbar
+--- !u!1 &177614148
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 177614152}
+  - component: {fileID: 177614151}
+  - component: {fileID: 177614150}
+  - component: {fileID: 177614149}
+  m_Layer: 5
+  m_Name: MainCanvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &177614149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177614148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &177614150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177614148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &177614151
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177614148}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!224 &177614152
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177614148}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!4 &304490087 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7341782165632416989, guid: dd3bb7cef711fa344bd6e9464b36b833, type: 3}
@@ -409,6 +510,7 @@ MonoBehaviour:
   anim: {fileID: 381745909}
   playerHealthbar: {fileID: 880552895}
   healthStart: 0
+  damageTextPrefab: {fileID: 5176129528107706915, guid: 1d6b297fe349b784cb75f706150e27bb, type: 3}
 --- !u!4 &381745911 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6657266098785018787, guid: 0186165c7862b8442947ca7c23d3f38a, type: 3}
@@ -1048,7 +1150,7 @@ Transform:
   m_GameObject: {fileID: 798166341}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.06636047, y: 0.90600204, z: 0.6964588}
+  m_LocalPosition: {x: 0.013, y: 0.90600204, z: -0.046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1122,6 +1224,7 @@ MonoBehaviour:
   autoFindGestureReceiver: 1
   parryBufferTime: 0.3
   lateGracePeriod: 0.1
+  parryTextPrefab: {fileID: 5176129528107706915, guid: cbf182613311366438062d0afea7d71d, type: 3}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1603,6 +1706,7 @@ MonoBehaviour:
   isPlayerTurn: 0
   enemyHealthBar: {fileID: 147943008}
   playerHealthbar: {fileID: 880552895}
+  damageTextPrefab: {fileID: 5176129528107706915, guid: 1d6b297fe349b784cb75f706150e27bb, type: 3}
   gestureReceiver: {fileID: 381745912}
   autoFindGestureReceiver: 1
 --- !u!1001 &1640095381
@@ -1714,6 +1818,7 @@ MonoBehaviour:
   anim: {fileID: 1807707495}
   playerHealthbar: {fileID: 0}
   healthStart: 0
+  damageTextPrefab: {fileID: 0}
 --- !u!1 &2057660827
 GameObject:
   m_ObjectHideFlags: 0
@@ -1947,3 +2052,4 @@ SceneRoots:
   - {fileID: 861582541}
   - {fileID: 1605432968}
   - {fileID: 381745906}
+  - {fileID: 177614152}
