@@ -39,10 +39,22 @@ public class gamemanager : MonoBehaviour
     // Reference to the active movement so we don't kill other scripts
     private Coroutine activeMoveCoroutine;
 
+    public AudioSource phase1Source;
+    public AudioSource phase2Source;
+    public float fadeDuration = 2.0f;
+
     void Start()
     {
         cam = Camera.main.transform;
         enterNeutral();
+    }
+
+    void Update()
+    {
+        if (EnemyHealth < 350000)
+        {
+            SwitchToPhase2();
+        }
     }
 
     public void enterPlayerAttack() 
@@ -102,5 +114,29 @@ public class gamemanager : MonoBehaviour
         cam.localPosition = cLocalPos;
         cam.localRotation = cLocalRot;
         movementcompleted = true;
+    }
+
+    public void SwitchToPhase2()
+    {
+        StartCoroutine(CrossfadeMusic());
+    }
+
+    private IEnumerator CrossfadeMusic()
+    {
+        float currentTime = 0;
+
+        while (currentTime < fadeDuration)
+        {
+            currentTime += Time.deltaTime;
+            float t = currentTime / fadeDuration;
+
+            // Phase 1 goes 1 -> 0 | Phase 2 goes 0 -> 1
+            phase1Source.volume = Mathf.Lerp(1f, 0f, t);
+            phase2Source.volume = Mathf.Lerp(0f, 1f, t);
+
+            yield return null; // Wait for next frame
+        }
+
+        phase1Source.Stop(); // Fully stop Phase 1
     }
 }
