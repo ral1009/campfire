@@ -41,7 +41,7 @@ public class gamemanager : MonoBehaviour
 
     public AudioSource phase1Source;
     public AudioSource phase2Source;
-    public float fadeDuration = 2.0f;
+    public bool phase2 = false;
 
     void Start()
     {
@@ -51,9 +51,10 @@ public class gamemanager : MonoBehaviour
 
     void Update()
     {
-        if (EnemyHealth < 350000)
+        if (EnemyHealth < 350000 && !phase2)
         {
             SwitchToPhase2();
+            phase2 = true;
         }
     }
 
@@ -118,25 +119,12 @@ public class gamemanager : MonoBehaviour
 
     public void SwitchToPhase2()
     {
-        StartCoroutine(CrossfadeMusic());
-    }
-
-    private IEnumerator CrossfadeMusic()
-    {
-        float currentTime = 0;
-
-        while (currentTime < fadeDuration)
+        if (!phase2Source.isPlaying) // Prevents restarting the music if called twice
         {
-            currentTime += Time.deltaTime;
-            float t = currentTime / fadeDuration;
-
-            // Phase 1 goes 1 -> 0 | Phase 2 goes 0 -> 1
-            phase1Source.volume = Mathf.Lerp(1f, 0f, t);
-            phase2Source.volume = Mathf.Lerp(0f, 1f, t);
-
-            yield return null; // Wait for next frame
+            phase1Source.Stop();
+            phase2Source.volume = 1.0f;
+            phase2Source.Play();
+            Debug.Log("Phase 2 Music Started!");
         }
-
-        phase1Source.Stop(); // Fully stop Phase 1
     }
 }
