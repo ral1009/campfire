@@ -3,11 +3,13 @@ using System.Collections;
 
 public class gamemanager : MonoBehaviour
 {
-    void Awake() 
-{
-    Instance = this;
-}
     public static gamemanager Instance;
+    
+    void Awake() 
+    {
+        Instance = this;
+    }
+
     public playeranimation playerAnimation;
     public juggernaut_anim_control juggernaut_Anim_Control;
     public int PlayerHealth = 6767;
@@ -20,6 +22,7 @@ public class gamemanager : MonoBehaviour
 
     [Header("State Tracking")]
     public string currentGameState; 
+    
     private Vector3 enemyAttackPos = new Vector3(10.8428f, 0f, -1.08772f);
     private Vector3 playerNeutralPos = new Vector3(10.6f, 0f, 8.5f);
     private Vector3 enemyNeutralPos = new Vector3(10.8428f, 0f, -40.8f);
@@ -32,14 +35,15 @@ public class gamemanager : MonoBehaviour
     private Quaternion camNeutralLocRot = Quaternion.Euler(10.913f, -19.813f, 1.589f);
 
     private Transform cam;
+    
+    // Reference to the active movement so we don't kill other scripts
+    private Coroutine activeMoveCoroutine;
 
     void Start()
     {
         cam = Camera.main.transform;
         enterNeutral();
-        
     }
-    
 
     public void enterPlayerAttack() 
     {
@@ -64,7 +68,8 @@ public class gamemanager : MonoBehaviour
         movementcompleted = false;
         Transition(playerNeutralPos, enemyNeutralPos, camNeutralLocPos, camNeutralLocRot);
     }
-        public void enterTransition() 
+
+    public void enterTransition() 
     {
         currentGameState = "Transition";
         playerAnimation.MoveBackward();
@@ -74,13 +79,14 @@ public class gamemanager : MonoBehaviour
 
     private void Transition(Vector3 pT, Vector3 eT, Vector3 cP, Quaternion cR)
     {
-        StopAllCoroutines();
-        StartCoroutine(MoveToState(pT, eT, cP, cR));
+        // FIX: Only stop the movement, not the TurnManager or Juggernaut logic!
+        if (activeMoveCoroutine != null) StopCoroutine(activeMoveCoroutine);
+        activeMoveCoroutine = StartCoroutine(MoveToState(pT, eT, cP, cR));
     }
 
     IEnumerator MoveToState(Vector3 pTarget, Vector3 eTarget, Vector3 cLocalPos, Quaternion cLocalRot)
     {
-        while (Vector3.Distance(player.position, pTarget) > 0.01f|| Vector3.Distance(enemy.position, eTarget) > 0.1f)
+        while (Vector3.Distance(player.position, pTarget) > 0.01f || Vector3.Distance(enemy.position, eTarget) > 0.1f)
         {
             player.position = Vector3.MoveTowards(player.position, pTarget, movespeed * Time.deltaTime);
             enemy.position = Vector3.MoveTowards(enemy.position, eTarget, movespeed * Time.deltaTime);

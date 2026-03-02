@@ -9,102 +9,136 @@ public class Turnmanager : MonoBehaviour
     public playeranimation playerAnimation;
     public juggernaut_anim_control enemyAnimation;
 
-    public bool isPlayerTurn;
-    public Healthbar healthBar;
+    [Header("UI & Health")]
+    public bool isPlayerTurn; 
+    public Healthbar enemyHealthBar;       // For the Juggernaut
+    public PlayerHealthbar playerHealthbar; // For the Player
+
+    [Header("UDP Gesture Receiver")]
+    public UdpGestureReceiverV2 gestureReceiver;
+    public bool autoFindGestureReceiver = true;
+
+    private bool actionLocked = false;
+    private UdpGestureReceiverV2.HandsUpState prevHands = UdpGestureReceiverV2.HandsUpState.None;
+
+    void Awake()
+    {
+        // Auto-link the gesture receiver if it exists in the scene
+        if (autoFindGestureReceiver && gestureReceiver == null)
+        {
+#if UNITY_2023_1_OR_NEWER
+            gestureReceiver = Object.FindFirstObjectByType<UdpGestureReceiverV2>();
+#else
+            gestureReceiver = FindObjectOfType<UdpGestureReceiverV2>();
+#endif
+        }
+    }
 
     void Update()
     {
-        // We only take input if the game is currently in "Neutral"
-        if (gameManager.currentGameState == "Neutral")
-        {
-            isPlayerTurn = true;
+        // 1. STATE CHECK
+        bool neutral = (gameManager != null && gameManager.currentGameState == "Neutral");
+        isPlayerTurn = neutral;
 
-            // --- ATTACK LOGIC ---
-            if (Keyboard.current.aKey.wasPressedThisFrame)
-            {
-                move = "sword";
-                StartCoroutine(AttackSequence());
-            }
-            else if (Keyboard.current.sKey.wasPressedThisFrame)
-            {
-                move = "spell";
-                StartCoroutine(AttackSequence());
-            }
-            
-            // --- HEAL LOGIC ---
-            else if (Keyboard.current.dKey.wasPressedThisFrame && gamemanager.Instance.PlayerHealth < 6767)
-            {
-                if (gamemanager.Instance.PlayerHealth <= 6091) {
-                    gamemanager.Instance.PlayerHealth += 676;
-                } else {
-                    gamemanager.Instance.PlayerHealth = 6767;
-                }
-                move = "heal";
-                Debug.Log("Healed! Current Health: " + gamemanager.Instance.PlayerHealth);
-                
-                // Heal moves straight to Enemy Turn
-                gamemanager.Instance.enterEnemyAttack();
-            }
-            
-            // --- SKIP LOGIC ---
-            else if (Keyboard.current.fKey.wasPressedThisFrame)
-            {
-                move = "skip";
-                gamemanager.Instance.enterEnemyAttack();
-            }
-        } 
-        else
+        // If we aren't in Neutral, reset the lock and track the "last" hand position
+        if (!neutral)
         {
-            isPlayerTurn = false;
+            actionLocked = false;
+            if (gestureReceiver != null) prevHands = gestureReceiver.handsUpState;
+            return;
         }
+
+        // If we are already doing a move, ignore all further input
+        if (actionLocked) return;
+
+        // 2. INPUT COLLECTION
+        // Keyboard Fallback
+        bool keySword = Keyboard.current != null && Keyboard.current.aKey.wasPressedThisFrame;
+        bool keySpell = Keyboard.current != null && Keyboard.current.sKey.wasPressedThisFrame;
+        bool keyHeal  = Keyboard.current != null && Keyboard.current.dKey.wasPressedThisFrame;
+        bool keySkip  = Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame;
+
+        // Gesture Logic
+        var handsNow = gestureReceiver ? gestureReceiver.handsUpState : UdpGestureReceiverV2.HandsUpState.None;
+        bool gestureSword = (handsNow == UdpGestureReceiverV2.HandsUpState.Right) && (prevHands != handsNow);
+        bool gestureSpell = (handsNow == UdpGestureReceiverV2.HandsUpState.Left)  && (prevHands != handsNow);
+        bool gestureHeal  = (handsNow == UdpGestureReceiverV2.HandsUpState.Both)  && (prevHands != handsNow);
+        bool gestureSkip  = gestureReceiver != null && gestureReceiver.crossPressedThisFrame;
+
+        prevHands = handsNow; // Update history for the next frame
+
+        // 3. MOVE EXECUTION
+        // --- ATTACK (SWORD/SPELL) ---
+        if (keySword || gestureSword || keySpell || gestureSpell)
+        {
+            move = (keySword || gestureSword) ? "sword" : "spell";
+            actionLocked = true;
+            StartCoroutine(AttackSequence());
+        }
+        // --- HEAL ---
+        else if ((keyHeal || gestureHeal) && gamemanager.Instance.PlayerHealth < 6767)
+        {
+            actionLocked = true;
+            
+            // Logic: Add 676 HP, but don't go over the max (6767)
+            if (gamemanager.Instance.PlayerHealth <= 6091)
+                gamemanager.Instance.PlayerHealth += 676;
+            else
+                gamemanager.Instance.PlayerHealth = 6767;
+
+            move = "heal";
+            Debug.Log("Healed! HP: " + gamemanager.Instance.PlayerHealth);
+
+            // UI UPDATE: Update the player's health bar visually
+            if (playerHealthbar != null)
+                playerHealthbar.updatePlayerHealthbar(gamemanager.Instance.PlayerHealth, 6767);
+
+            gamemanager.Instance.enterEnemyAttack();
+            StartCoroutine(UnlockNextFrame());
+        }
+        // --- SKIP ---
+        else if (keySkip || gestureSkip)
+        {
+            move = "skip";
+            actionLocked = true;
+            gamemanager.Instance.enterEnemyAttack();
+            StartCoroutine(UnlockNextFrame());
+        }
+    }
+
+    IEnumerator UnlockNextFrame()
+    {
+        yield return null;
+        actionLocked = false;
     }
 
     IEnumerator AttackSequence()
     {
-        // 1. START PLAYER MOVE
+        // 1. Move to Enemy
         gamemanager.Instance.enterPlayerAttack();
-        
-        // Wait until the player physically reaches the enemy
-        while (gamemanager.Instance.movementcompleted == false)
-        {
-            yield return null;
-        }
+        while (gamemanager.Instance.movementcompleted == false) yield return null;
 
-        // 2. EXECUTE ATTACK
+        // 2. Play Animation & Wait for Impact
         playerAnimation.Attack();
-        Debug.Log("Arrived and Attacking!");
-
-        // Wait for the sword to "land" (0.7s)
         yield return new WaitForSeconds(0.7f);
-        
+
+        // 3. Apply Damage
         enemyAnimation.TakeDamage();
-        
-        // Subtract health and update the UI
         gamemanager.Instance.EnemyHealth -= 67676;
-        healthBar.updateHealthbar(gamemanager.Instance.EnemyHealth, 676741);
+        
+        // UI UPDATE: Update the Juggernaut's health bar
+        if (enemyHealthBar != null)
+            enemyHealthBar.updateHealthbar(gamemanager.Instance.EnemyHealth, 676741);
 
-        // 3. WAIT FOR ANIMATION TO FINISH
-        // Give the player time to finish their swing before moving back
+        // 4. Recovery & Return
         yield return new WaitForSeconds(2.0f);
-
-        // 4. SWITCH TO TRANSITION (Moving back to start)
-        Debug.Log("Starting Transition back...");
         gamemanager.Instance.enterTransition();
+        while (gamemanager.Instance.movementcompleted == false) yield return null;
 
-        // IMPORTANT: Wait for the "Move Back" to finish
-        // If movementcompleted isn't reset in GameManager, this might skip instantly.
-        while (gamemanager.Instance.movementcompleted == false)
-        {
-            yield return null;
-        }
-
-        // 5. START ENEMY ATTACK
-        // Now that the player is safely back at their spot, the Juggernaut begins
-        Debug.Log("Transition complete. Enemy attacking now!");
+        // 5. Trigger Enemy Turn
         enemyAnimation.RunForward();
         gamemanager.Instance.enterEnemyAttack();
-        
-        // Note: Do NOT call enterNeutral() here. 
-        // The game stays in "EnemyAttack" so the Parry logic can run.
+
+        actionLocked = false;
     }
 }

@@ -358,6 +358,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1927186500216150043, guid: 0186165c7862b8442947ca7c23d3f38a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 381745910}
+    - targetCorrespondingSourceObject: {fileID: 1927186500216150043, guid: 0186165c7862b8442947ca7c23d3f38a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 381745912}
   m_SourcePrefab: {fileID: 100100000, guid: 0186165c7862b8442947ca7c23d3f38a, type: 3}
 --- !u!4 &381745907 stripped
 Transform:
@@ -411,6 +414,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6657266098785018787, guid: 0186165c7862b8442947ca7c23d3f38a, type: 3}
   m_PrefabInstance: {fileID: 381745906}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &381745912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381745908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67c632c18a840d743b6f401f91feac66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UdpGestureReceiverV2
+  port: 5052
+  handsUpState: 0
+  armsCrossed: 0
+  crossPressedThisFrame: 0
+  showOnScreenDebug: 1
+  logOnChange: 1
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,7 +697,7 @@ MonoBehaviour:
   gameManager: {fileID: 861582542}
   anim: {fileID: 639212818}
   weaponHitbox: {fileID: 2110559878}
-  slowdown: 1
+  slowdown: 0.6
 --- !u!4 &639212817 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7584525173041683099, guid: dd3bb7cef711fa344bd6e9464b36b833, type: 3}
@@ -1092,11 +1113,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 798166341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 936ab4ca156d2b04cb6ffb6b5de2020b, type: 3}
+  m_Script: {fileID: 11500000, guid: ffd7078a8447a8d4e91594dce898ad35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParryDetector
   anim: {fileID: 381745909}
   playerAnimation: {fileID: 381745910}
+  gestureReceiver: {fileID: 381745912}
+  autoFindGestureReceiver: 1
   parryBufferTime: 0.3
   lateGracePeriod: 0.1
 --- !u!1 &832575517
@@ -1189,17 +1212,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 861582540}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b40a566219fa0e43beb7a613852beb6, type: 3}
+  m_Script: {fileID: 11500000, guid: 67b879f77cbb7584a98fdb50a671026c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
   playerAnimation: {fileID: 381745910}
-  juggernaut_Anim_Control: {fileID: 0}
+  juggernaut_Anim_Control: {fileID: 639212815}
   PlayerHealth: 6767
   EnemyHealth: 676741
   player: {fileID: 381745907}
   enemy: {fileID: 639212817}
   movespeed: 50
-  rotationSpeed: 2.5
+  rotationSpeed: 5
   movementcompleted: 0
   currentGameState: 
 --- !u!4 &864626856 stripped
@@ -1570,7 +1593,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1605432967}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07580a54376d2c54d9fffcad542dcab2, type: 3}
+  m_Script: {fileID: 11500000, guid: d9ac56c55d6924240b87de4bb53d13da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
   gameManager: {fileID: 861582542}
@@ -1578,7 +1601,10 @@ MonoBehaviour:
   playerAnimation: {fileID: 381745910}
   enemyAnimation: {fileID: 639212815}
   isPlayerTurn: 0
-  healthBar: {fileID: 147943008}
+  enemyHealthBar: {fileID: 147943008}
+  playerHealthbar: {fileID: 880552895}
+  gestureReceiver: {fileID: 381745912}
+  autoFindGestureReceiver: 1
 --- !u!1001 &1640095381
 PrefabInstance:
   m_ObjectHideFlags: 0
