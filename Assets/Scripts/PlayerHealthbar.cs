@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class PlayerHealthbar : MonoBehaviour
 {
+    public DeathScreen deathScreen;
 
     public gamemanager gameManager;
     public static PlayerHealthbar Instance;
@@ -18,6 +19,7 @@ public class PlayerHealthbar : MonoBehaviour
         if (gameManager.PlayerHealth <= 0)
         {
             Debug.Log("Loss");
+            deathScreen.dead = true;
         }
         if (gameManager.EnemyHealth <= 0)
         {
