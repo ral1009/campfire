@@ -13,6 +13,9 @@ public class Turnmanager : MonoBehaviour
     public bool isPlayerTurn;
     public Healthbar enemyHealthBar;       
     public PlayerHealthbar playerHealthbar; 
+    public int damageDealt = 67676;
+    public int HealAmount = 676;
+    public int enemymaxhealth = 676741;
 
     [Header("Damage Popups")]
     public GameObject damageTextPrefab;
@@ -81,19 +84,14 @@ public class Turnmanager : MonoBehaviour
             actionLocked = true;
             StartCoroutine(AttackSequence());
         }
-        else if ((keyHeal || gestureHeal) && gamemanager.Instance.PlayerHealth < 6767)
+        else if ((keyHeal || gestureHeal) && gamemanager.Instance.PlayerHealth < playerAnimation.healthStart)
         {
             actionLocked = true;
-            
-            // Healing Logic
-            if (gamemanager.Instance.PlayerHealth <= 6091)
-                gamemanager.Instance.PlayerHealth += 676;
-            else
-                gamemanager.Instance.PlayerHealth = 6767;
+            gamemanager.Instance.PlayerHealth = Mathf.Min(gamemanager.Instance.PlayerHealth + HealAmount, playerAnimation.healthStart);
 
             // Update Player UI
             if (playerHealthbar != null)
-                playerHealthbar.updatePlayerHealthbar(gamemanager.Instance.PlayerHealth, 6767);
+                playerHealthbar.updatePlayerHealthbar(gamemanager.Instance.PlayerHealth, playerAnimation.healthStart);
 
             gamemanager.Instance.enterEnemyAttack();
             StartCoroutine(UnlockNextFrame());
@@ -125,12 +123,11 @@ public class Turnmanager : MonoBehaviour
 
         // 3. APPLY DAMAGE & UI POPUP
         enemyAnimation.TakeDamage();
-        int damageDealt = 67676;
         gamemanager.Instance.EnemyHealth -= damageDealt;
         
         // Update Enemy UI Bar
         if (enemyHealthBar != null)
-            enemyHealthBar.updateHealthbar(gamemanager.Instance.EnemyHealth, 676741);
+            enemyHealthBar.updateHealthbar(gamemanager.Instance.EnemyHealth, enemymaxhealth);
 
         // SPAWN POPUP (Missing in previous merge)
         if (damageTextPrefab != null && uiCanvas != null)

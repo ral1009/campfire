@@ -9,6 +9,7 @@ public class playeranimation : MonoBehaviour
     [Header("Health Settings")]
     public PlayerHealthbar playerHealthbar;
     public int healthStart = 6767;
+    public int damageTaken = 676;
 
     [Header("UI Feedback")]
     public GameObject damageTextPrefab;
@@ -61,7 +62,6 @@ public class playeranimation : MonoBehaviour
     public void DecreaseHealth()
     {
         // 1. Set the damage amount
-        int damageTaken = 676;
 
         // 2. Update the actual health variable in GameManager
         gamemanager.Instance.PlayerHealth -= damageTaken;

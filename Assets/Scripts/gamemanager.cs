@@ -36,7 +36,6 @@ public class gamemanager : MonoBehaviour
 
     private Transform cam;
     
-    // Reference to the active movement so we don't kill other scripts
     private Coroutine activeMoveCoroutine;
 
     public AudioSource phase1Source;
@@ -53,8 +52,8 @@ public class gamemanager : MonoBehaviour
     {
         if (EnemyHealth < 350000 && !phase2)
         {
-            SwitchToPhase2();
             phase2 = true;
+            StartCoroutine(CrossfadeToPhase2(2.0f));
         }
     }
 
@@ -92,7 +91,6 @@ public class gamemanager : MonoBehaviour
 
     private void Transition(Vector3 pT, Vector3 eT, Vector3 cP, Quaternion cR)
     {
-        // FIX: Only stop the movement, not the TurnManager or Juggernaut logic!
         if (activeMoveCoroutine != null) StopCoroutine(activeMoveCoroutine);
         activeMoveCoroutine = StartCoroutine(MoveToState(pT, eT, cP, cR));
     }
@@ -117,14 +115,27 @@ public class gamemanager : MonoBehaviour
         movementcompleted = true;
     }
 
-    public void SwitchToPhase2()
+    IEnumerator CrossfadeToPhase2(float duration)
     {
-        if (!phase2Source.isPlaying) // Prevents restarting the music if called twice
+        float currentTime = 0;
+        float startVol = phase1Source.volume;
+
+        phase2Source.volume = 0;
+        phase2Source.Play();
+
+        while (currentTime < duration)
         {
-            phase1Source.Stop();
-            phase2Source.volume = 1.0f;
-            phase2Source.Play();
-            Debug.Log("Phase 2 Music Started!");
+            currentTime += Time.deltaTime;
+            float t = currentTime / duration;
+            
+            phase1Source.volume = Mathf.Lerp(startVol, 0, t);
+            phase2Source.volume = Mathf.Lerp(0, 1f, t);
+            
+            yield return null;
         }
+
+        phase1Source.Stop();
+        phase2Source.volume = 1f;
+        Debug.Log("Phase 2 Music Started!");
     }
 }

@@ -1526,8 +1526,8 @@ MonoBehaviour:
   rotationSpeed: 5
   movementcompleted: 0
   currentGameState: 
-  phase1Source: {fileID: 0}
-  phase2Source: {fileID: 0}
+  phase1Source: {fileID: 861582544}
+  phase2Source: {fileID: 861582543}
   phase2: 0
 --- !u!82 &861582543
 AudioSource:
@@ -1536,13 +1536,13 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 861582540}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 13a8732877084eb47bb06e16d309375f, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0
+  m_PlayOnAwake: 0
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
