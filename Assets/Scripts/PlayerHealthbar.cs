@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class PlayerHealthbar : MonoBehaviour
 {
     public DeathScreen deathScreen;
+    public WinScreen winScreen;
 
     public gamemanager gameManager;
     public static PlayerHealthbar Instance;
@@ -24,6 +25,7 @@ public class PlayerHealthbar : MonoBehaviour
         if (gameManager.EnemyHealth <= 0)
         {
             Debug.Log("Win");
+            winScreen.ShowWinScreen();
         }
     }
 
